@@ -1,5 +1,5 @@
 export async function createFlashcard(front: string, back: string) {
-    const resp = await fetch("http://localhost:8080/flashcards/create-flashcard", {
+    const resp = await fetch("http://localhost:8080/flashcards/create", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -11,7 +11,7 @@ export async function createFlashcard(front: string, back: string) {
 }
 
 export async function getFlashcards() {
-    const res = await fetch("http://localhost:8080/flashcards/get-flashcards", {
+    const res = await fetch("http://localhost:8080/flashcards/get", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -30,7 +30,7 @@ export async function getFlashcards() {
 }
 
 export async function deleteFlashcard(id: number) {
-    const resp = await fetch("http://localhost:8080/flashcards/delete-flashcard", {
+    const resp = await fetch("http://localhost:8080/flashcards/delete", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -42,7 +42,7 @@ export async function deleteFlashcard(id: number) {
 }
 
 export async function editFlashcard(id: number, front: string, back: string) {
-    const resp = await fetch("http://localhost:8080/flashcards/update-flashcards", {
+    const resp = await fetch("http://localhost:8080/flashcards/update", {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
