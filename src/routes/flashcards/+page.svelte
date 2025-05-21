@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import CreateFlashcard from "../../components/CreateFlashcard.svelte";
-    import { deleteFlashcard, getFlashcards } from "$lib/api";
+    import { deleteAllFlashcards, deleteFlashcard, getFlashcards } from "$lib/api";
     import EditFlashcard from "../../components/EditFlashcard.svelte";
 
     type Flashcard = {
@@ -32,6 +32,12 @@
         editingFlashcard = flashcard;
         showEditFlashcardPopup = true;
     }
+
+    async function handleDeleteAllFlashcards() {
+        const response = await deleteAllFlashcards();
+        console.log(response);
+        window.location.reload();
+    }
 </script>
 
 <div class="flex flex-col items-start ml-2 mt-2 bg-white p-2">
@@ -47,10 +53,10 @@
                 class="cursor-pointer bg-green-100 text-green-700 hover:bg-green-200 hover:text-green-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
                 >Criar</button
             >
-            <a
-                href="/"
+            <button
+                onclick={handleDeleteAllFlashcards}
                 class="cursor-pointer bg-red-100 text-red-700 hover:bg-red-200 hover:text-red-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
-                >Deletar todos</a
+                >Deletar todos</button
             >
         </div>
         <h2 class="mr-5 text-xl">Flashcards: {flashcards.length}</h2>

@@ -52,3 +52,11 @@ export async function editFlashcard(id: number, front: string, back: string) {
 
     return resp.status;
 }
+
+export async function deleteAllFlashcards() {
+    const resp = await fetch("http://localhost:8080/flashcards/deleteall", {
+        method: "POST",
+    })
+
+    return resp.status;
+}
