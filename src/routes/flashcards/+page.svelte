@@ -11,6 +11,7 @@
     };
 
     let showCreateFlashcardPopup = $state();
+    let counter = $state(0);
     let flashcards: Flashcard[] = $state([]);
 
     onMount(async () => {
@@ -55,7 +56,6 @@
     <table class="w-full text-left">
         <thead>
             <tr class="border-b border-[#E0E0E0]">
-                <th class="pb-4">ID</th>
                 <th class="pb-4">Frente</th>
                 <th class="pb-4">Verso</th>
             </tr>
@@ -63,7 +63,6 @@
         <tbody>
             {#each flashcards as flashcard}
                 <tr class="border-b border-[#F0F0F0]">
-                    <td class="py-3">{flashcard.ID}</td>
                     <td class="py-3">{flashcard.Front}</td>
                     <td class="py-3">{flashcard.Back}</td>
                 </tr>
