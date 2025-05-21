@@ -3,4 +3,4 @@
 
 </script>
 
-<Flashcard front="Capital do RS" back="Porto Alege" />
+<Flashcard flashcardQty={5}/>

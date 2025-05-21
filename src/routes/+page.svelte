@@ -8,9 +8,6 @@
         Back: string;
     };
 
-    let showCreateFlashcardPopup = $state();
-    let showEditFlashcardPopup = $state();
-
     let flashcards: Flashcard[] = $state([]);
     onMount(async () => {
         try {
@@ -19,6 +16,18 @@
             console.error(error);
         }
     });
+
+    let selectedOption = $state("aleatorio");
+    let flashcardQty = $state(1);
+
+    function onChange(event: Event) {
+        selectedOption = (event.currentTarget as HTMLInputElement).value;
+    }
+
+    function handleSubmit() {
+        console.log(flashcardQty);
+        console.log(selectedOption);
+    }
 </script>
 
 <div class="flex flex-col items-center justify-center min-h-screen bg-teal-50">
@@ -37,8 +46,8 @@
                 id="qtd"
                 type="number"
                 min="1"
-                max="{flashcards.length}"
-                value="{flashcards.length}"
+                max={flashcards.length}
+                bind:value={flashcardQty}
                 class="p-3 w-full px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-100 bg-gray-50 text-gray-800 text-lg"
             />
         </div>
@@ -55,6 +64,7 @@
                         value="aleatorio"
                         class="accent-emerald-500 h-5 w-5"
                         checked
+                        bind:group={selectedOption}
                     />
                     <span class="ml-3 text-lg text-gray-700">Aleatório</span>
                 </label>
@@ -64,6 +74,7 @@
                         name="modo"
                         value="erros"
                         class="accent-emerald-500 h-5 w-5"
+                        bind:group={selectedOption}
                     />
                     <span class="ml-3 text-lg text-gray-700"
                         >Foco nos erros</span
@@ -73,10 +84,10 @@
         </div>
 
         <div class="flex flex-col justify-center text-center gap-3 mt-8">
-            <a
-                href="/flashcards"
-                class="text-emerald-600 hover:text-emerald-800 font-medium px-8 py-4 rounded-xl hover:bg-emerald-100 transition-colors shadow-md text-lg"
-                >Começar</a
+            <button
+                onclick={handleSubmit}
+                class="cursor-pointer text-emerald-600 hover:text-emerald-800 font-medium px-8 py-4 rounded-xl hover:bg-emerald-100 transition-colors shadow-md text-lg"
+                >Praticar</button
             >
             <div class="flex gap-3">
                 <a
