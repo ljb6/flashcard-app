@@ -6,7 +6,7 @@ export async function createFlashcard(front: string, back: string) {
         },
         body: JSON.stringify({ front, back })
     })
-    
+
     return resp.status;
 }
 
@@ -37,6 +37,18 @@ export async function deleteFlashcard(id: number) {
         },
         body: JSON.stringify({ id })
     })
-    
+
+    return resp.status;
+}
+
+export async function editFlashcard(id: number, front: string, back: string) {
+    const resp = await fetch("http://localhost:8080/flashcards/update-flashcards", {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, front, back })
+    })
+
     return resp.status;
 }

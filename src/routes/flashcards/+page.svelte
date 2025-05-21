@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
     import CreateFlashcard from "../../components/CreateFlashcard.svelte";
     import { deleteFlashcard, getFlashcards } from "$lib/api";
+    import EditFlashcard from "../../components/EditFlashcard.svelte";
 
     type Flashcard = {
         ID: number;
@@ -10,8 +11,9 @@
     };
 
     let showCreateFlashcardPopup = $state();
-    let flashcards: Flashcard[] = $state([]);
+    let showEditFlashcardPopup = $state();
 
+    let flashcards: Flashcard[] = $state([]);
     onMount(async () => {
         try {
             flashcards = await getFlashcards();
@@ -23,6 +25,12 @@
     async function handleFlashcardDelete(id: number) {
         const response = await deleteFlashcard(id);
         flashcards = flashcards.filter((flashcard) => flashcard.ID !== id);
+    }
+
+    let editingFlashcard: Flashcard | null = $state(null);
+    function handleFlashcardEditClick(flashcard: Flashcard) {
+        editingFlashcard = flashcard;
+        showEditFlashcardPopup = true;
     }
 </script>
 
@@ -50,10 +58,24 @@
 </div>
 <hr class="mt-2 border-blue-100" />
 
+<!--Popups para editar/criar-->
 <CreateFlashcard
     open={showCreateFlashcardPopup}
     onClose={() => (showCreateFlashcardPopup = false)}
 />
+
+{#if editingFlashcard}
+    <EditFlashcard
+        open={showEditFlashcardPopup}
+        onClose={() => {
+            showEditFlashcardPopup = false;
+            editingFlashcard = null;
+        }}
+        frontPh={editingFlashcard.Front}
+        backPh={editingFlashcard.Back}
+        id={editingFlashcard.ID}
+    />
+{/if}
 
 <section class="bg-white p-6 rounded-2xl">
     <table class="w-full text-left">
@@ -76,6 +98,8 @@
                             class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"
                         >
                             <button
+                                onclick={() =>
+                                    handleFlashcardEditClick(flashcard)}
                                 class="cursor-pointer px-3 py-1"
                                 title="Editar"
                             >
