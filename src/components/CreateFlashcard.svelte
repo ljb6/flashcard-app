@@ -11,7 +11,7 @@
         console.log(response);
         if (response == 200) {
             onClose();
-            goto("/").then(() => goto("/flashcards"));
+            window.location.reload();
         } else {
             alert("Erro!");
         }
