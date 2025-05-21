@@ -1,3 +1,26 @@
+<script lang="ts">
+    import { getFlashcards } from "$lib/api";
+    import { onMount } from "svelte";
+
+    type Flashcard = {
+        ID: number;
+        Front: string;
+        Back: string;
+    };
+
+    let showCreateFlashcardPopup = $state();
+    let showEditFlashcardPopup = $state();
+
+    let flashcards: Flashcard[] = $state([]);
+    onMount(async () => {
+        try {
+            flashcards = await getFlashcards();
+        } catch (error) {
+            console.error(error);
+        }
+    });
+</script>
+
 <div class="flex flex-col items-center justify-center min-h-screen bg-teal-50">
     <h1 class="text-6xl font-bold text-gray-800 mb-10">FlashApp</h1>
 
@@ -5,15 +28,17 @@
         <h1 class="text-3xl font-bold text-left mb-6">Configurações</h1>
 
         <div class="mt-6">
-            <label for="qtd" class="block text-lg text-gray-700 font-medium mb-2"
-                >Quantidade de flashcards</label
+            <label
+                for="qtd"
+                class="block text-lg text-gray-700 font-medium mb-2"
+                >Quantidade de flashcards (máx. {flashcards.length})</label
             >
             <input
                 id="qtd"
                 type="number"
                 min="1"
-                max="100"
-                value="10"
+                max="{flashcards.length}"
+                value="{flashcards.length}"
                 class="p-3 w-full px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-100 bg-gray-50 text-gray-800 text-lg"
             />
         </div>
@@ -40,12 +65,14 @@
                         value="erros"
                         class="accent-emerald-500 h-5 w-5"
                     />
-                    <span class="ml-3 text-lg text-gray-700">Foco nos erros</span>
+                    <span class="ml-3 text-lg text-gray-700"
+                        >Foco nos erros</span
+                    >
                 </label>
             </div>
         </div>
 
-        <div class="flex flex-col justify-center text-center gap-4 mt-8">
+        <div class="flex flex-col justify-center text-center gap-3 mt-8">
             <a
                 href="/flashcards"
                 class="text-emerald-600 hover:text-emerald-800 font-medium px-8 py-4 rounded-xl hover:bg-emerald-100 transition-colors shadow-md text-lg"

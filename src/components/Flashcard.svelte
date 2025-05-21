@@ -10,21 +10,21 @@
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div
-        class="flashcard w-70 aspect-square rounded-xl shadow-lg cursor-pointer transition-transform duration-500"
+        class="flashcard w-80 aspect-square rounded-xl shadow-lg cursor-pointer transition-transform duration-500"
         class:flipped={showAnswer}
         onclick={handleFlashcard}
     >
         <div
-            class="front absolute w-full h-full flex items-center justify-center bg-white rounded-xl border-2 border-gray-200 backface-hidden"
+            class="front absolute w-full h-full flex items-center justify-center bg-white rounded-xl border-2 border-gray-200 backface-hidden p-6"
         >
             <p class="text-2xl font-semibold text-gray-800">
                 {front}
             </p>
         </div>
         <div
-            class="back absolute w-full h-full flex items-center justify-center bg-blue-50 rounded-xl border-2 border-blue-400 backface-hidden rotate-y-180"
+            class="back absolute w-full h-full flex items-center justify-center bg-teal-50 rounded-xl border-2 border-emerald-400 backface-hidden rotate-y-180 p-6"
         >
-            <p class="text-2xl font-semibold text-blue-600">{back}</p>
+            <p class="text-2xl font-semibold text-emerald-600">{back}</p>
         </div>
     </div>
 </div>
