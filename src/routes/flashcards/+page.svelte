@@ -58,13 +58,35 @@
             <tr class="border-b border-[#E0E0E0]">
                 <th class="pb-4">Frente</th>
                 <th class="pb-4">Verso</th>
+                <th class="pb-4"></th>
+                <!-- Coluna para ações -->
             </tr>
         </thead>
         <tbody>
             {#each flashcards as flashcard}
-                <tr class="border-b border-[#F0F0F0]">
+                <tr
+                    class="border-b border-[#F0F0F0] group hover:bg-blue-50 transition-colors"
+                >
                     <td class="py-3">{flashcard.Front}</td>
                     <td class="py-3">{flashcard.Back}</td>
+                    <td class="py-3 text-right">
+                        <div
+                            class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                            <button
+                                class="cursor-pointer px-3 py-1"
+                                title="Editar"
+                            >
+                                ✏️
+                            </button>
+                            <button
+                                class="cursor-pointer px-3 py-1"
+                                title="Deletar"
+                            >
+                                🗑️
+                            </button>
+                        </div>
+                    </td>
                 </tr>
             {/each}
         </tbody>
