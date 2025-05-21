@@ -48,6 +48,17 @@
     onClose={() => (showCreateFlashcardPopup = false)}
 />
 
-{#each flashcards as flashcard}
-    <Flashcard front={flashcard.Front} back={flashcard.Back}/>
-{/each}
+<div class="flashcard-grid justify-center mt-4 ml-4 mr-4">
+    {#each flashcards as flashcard}
+        <Flashcard front={flashcard.Front} back={flashcard.Back} />
+    {/each}
+</div>
+
+<style>
+    .flashcard-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.5rem;
+        justify-items: center;
+    }
+</style>
