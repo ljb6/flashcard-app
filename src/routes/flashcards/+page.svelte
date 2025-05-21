@@ -63,7 +63,7 @@
                 >Deletar todos</button
             >
         </div>
-        <h2 class="mr-5 text-xl">Flashcards: {flashcards.length}</h2>
+        <h2 class="mr-5 text-xl font-bold">Flashcards: {flashcards.length}</h2>
     </div>
 </div>
 <hr class="mt-2 border-emerald-100" />
