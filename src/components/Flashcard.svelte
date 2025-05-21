@@ -2,12 +2,12 @@
     import { getFlashcards } from "$lib/api";
     import { onMount } from "svelte";
 
-    let flashcardsQty = $props();
+    let { flashcardQty, trainType } = $props();
 
     type Flashcard = {
-        ID: number;
-        Front: string;
-        Back: string;
+        id: number;
+        front: string;
+        back: string;
     };
 
     let loading = $state(true);
@@ -16,7 +16,7 @@
     let flashcards: Flashcard[] = $state([]);
     onMount(async () => {
         try {
-            flashcards = await getFlashcards();
+            flashcards = await getFlashcards(trainType, flashcardQty);
         } catch (error: any) {
             loadingError = error;
             console.error(error);
@@ -25,11 +25,6 @@
         }
     });
 
-    function shuffleFlashcards(x: number): Flashcard[] {
-        return [...flashcards].sort(() => Math.random() - 0.5).slice(0, x);
-    }
-
-    flashcards = shuffleFlashcards(5);
 
     let showAnswer = $state();
     let step = $state(0);
@@ -52,7 +47,7 @@
 {#if loading}
     <h2>Carregando flashcards..</h2>
 {:else if loadingError}
-    <h2>ss</h2>
+    <h2>loading error</h2>
 {:else if flashcards.length == 0}
     <h2>Você ainda nao adicionou flashcards</h2>
 {:else}
@@ -92,7 +87,7 @@
                             class="front absolute w-full h-full flex items-center justify-center bg-white rounded-xl border-2 border-gray-200 backface-hidden p-6"
                         >
                             <p class="text-2xl font-semibold text-gray-800">
-                                {flashcards[step].Front}
+                                {flashcards[step].front}
                             </p>
                         </div>
                         <div
@@ -104,7 +99,7 @@
                                   : ' border-gray-200'}"
                         >
                             <p class="text-2xl font-semibold text-gray-800">
-                                {flashcards[step].Back}
+                                {flashcards[step].back}
                             </p>
                         </div>
                     </div>

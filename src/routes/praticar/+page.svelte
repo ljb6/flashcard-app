@@ -3,4 +3,4 @@
 
 </script>
 
-<Flashcard flashcardQty={5}/>
+<Flashcard flashcardQty={5} trainType="random"/>

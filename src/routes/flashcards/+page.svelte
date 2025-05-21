@@ -9,9 +9,9 @@
     import EditFlashcard from "../../components/EditFlashcard.svelte";
 
     type Flashcard = {
-        ID: number;
-        Front: string;
-        Back: string;
+        id: number;
+        front: string;
+        back: string;
     };
 
     let showCreateFlashcardPopup = $state();
@@ -20,7 +20,7 @@
     let flashcards: Flashcard[] = $state([]);
     onMount(async () => {
         try {
-            flashcards = await getFlashcards();
+            flashcards = await getFlashcards("all", 0);
         } catch (error) {
             console.error(error);
         }
@@ -28,7 +28,7 @@
 
     async function handleFlashcardDelete(id: number) {
         const response = await deleteFlashcard(id);
-        flashcards = flashcards.filter((flashcard) => flashcard.ID !== id);
+        flashcards = flashcards.filter((flashcard) => flashcard.id !== id);
     }
 
     let editingFlashcard: Flashcard | null = $state(null);
@@ -81,9 +81,9 @@
             showEditFlashcardPopup = false;
             editingFlashcard = null;
         }}
-        frontPh={editingFlashcard.Front}
-        backPh={editingFlashcard.Back}
-        id={editingFlashcard.ID}
+        frontPh={editingFlashcard.front}
+        backPh={editingFlashcard.back}
+        id={editingFlashcard.id}
     />
 {/if}
 
@@ -101,8 +101,8 @@
                 <tr
                     class="border-b border-gray-100 group hover:bg-teal-50 transition-colors"
                 >
-                    <td class="py-3">{flashcard.Front}</td>
-                    <td class="py-3">{flashcard.Back}</td>
+                    <td class="py-3">{flashcard.front}</td>
+                    <td class="py-3">{flashcard.back}</td>
                     <td class="py-3 text-right">
                         <div
                             class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -117,7 +117,7 @@
                             </button>
                             <button
                                 onclick={() =>
-                                    handleFlashcardDelete(flashcard.ID)}
+                                    handleFlashcardDelete(flashcard.id)}
                                 class="cursor-pointer px-3 py-1"
                                 title="Deletar"
                             >

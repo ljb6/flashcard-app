@@ -10,22 +10,26 @@ export async function createFlashcard(front: string, back: string) {
     return resp.status;
 }
 
-export async function getFlashcards() {
+export async function getFlashcards(req_type: string, quantity: number) {
     const res = await fetch("http://localhost:8080/flashcards/get", {
-        method: "GET",
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
+        body: JSON.stringify({ req_type, quantity })
     });
 
     if (!res.ok) {
+        console.log(res);
         throw new Error('Failed to fetch flashcards');
     }
 
     //console.log(res);
 
     const data = await res.json();
-    console.log(data);
+
+    console.log("data: ", data);
+
     return data;
 }
 

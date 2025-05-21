@@ -11,7 +11,7 @@
     let flashcards: Flashcard[] = $state([]);
     onMount(async () => {
         try {
-            flashcards = await getFlashcards();
+            flashcards = await getFlashcards("all", 0);
         } catch (error) {
             console.error(error);
         }
