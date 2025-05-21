@@ -28,3 +28,15 @@ export async function getFlashcards() {
     console.log(data);
     return data;
 }
+
+export async function deleteFlashcard(id: number) {
+    const resp = await fetch("http://localhost:8080/flashcards/delete-flashcard", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id })
+    })
+    
+    return resp.status;
+}

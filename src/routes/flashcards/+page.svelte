@@ -1,8 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import CreateFlashcard from "../../components/CreateFlashcard.svelte";
-    import { getFlashcards } from "$lib/api";
-    import Flashcard from "../../components/Flashcard.svelte";
+    import { deleteFlashcard, getFlashcards } from "$lib/api";
 
     type Flashcard = {
         ID: number;
@@ -11,7 +10,6 @@
     };
 
     let showCreateFlashcardPopup = $state();
-    let counter = $state(0);
     let flashcards: Flashcard[] = $state([]);
 
     onMount(async () => {
@@ -21,6 +19,11 @@
             console.error(error);
         }
     });
+
+    async function handleFlashcardDelete(id: number) {
+        const response = await deleteFlashcard(id);
+        flashcards = flashcards.filter((flashcard) => flashcard.ID !== id);
+    }
 </script>
 
 <div class="flex flex-col items-start ml-2 mt-2 bg-white p-2">
@@ -80,6 +83,8 @@
                                 ✏️
                             </button>
                             <button
+                                onclick={() =>
+                                    handleFlashcardDelete(flashcard.ID)}
                                 class="cursor-pointer px-3 py-1"
                                 title="Deletar"
                             >
