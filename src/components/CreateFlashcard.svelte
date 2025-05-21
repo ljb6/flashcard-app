@@ -1,5 +1,19 @@
 <script>
+    import { createFlashcard } from "$lib/api";
+
     let { open, onClose } = $props();
+    let front = $state("");
+    let back = $state("");
+
+    async function handleFlashcardCreation() {
+        const response = await createFlashcard(front, back);
+        console.log(response);
+        if (response == 200) {
+            onClose();
+        } else {
+            alert("Erro!");
+        }
+    }
 </script>
 
 {#if open}
@@ -14,19 +28,21 @@
                 <input
                     class="border border-blue-200 rounded-lg p-2 w-full mb-3 focus:outline-none focus:ring-2 focus:ring-blue-200"
                     placeholder="Frente"
+                    bind:value={front}
                 />
                 <input
                     class="border border-blue-200 rounded-lg p-2 w-full mb-3 focus:outline-none focus:ring-2 focus:ring-blue-200"
                     placeholder="Verso"
+                    bind:value={back}
                 />
                 <button
-                    type="submit"
-                    class="cursor bg-green-100 text-green-700 hover:bg-green-200 hover:text-green-900 font-medium px-6 py-2 rounded-lg transition-colors shadow-md mr-2"
+                    onclick={handleFlashcardCreation}
+                    class="cursor-pointer bg-green-100 text-green-700 hover:bg-green-200 hover:text-green-900 font-medium px-6 py-2 rounded-lg transition-colors shadow-md mr-2"
                     >Salvar</button
                 >
                 <button
                     type="button"
-                    class="cursor bg-red-100 text-red-700 hover:bg-red-200 hover:text-red-900 font-medium px-6 py-2 rounded-lg transition-colors shadow-md"
+                    class="cursor-pointer bg-red-100 text-red-700 hover:bg-red-200 hover:text-red-900 font-medium px-6 py-2 rounded-lg transition-colors shadow-md"
                     onclick={onClose}>Fechar</button
                 >
             </form>
