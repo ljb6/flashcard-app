@@ -1,6 +1,25 @@
-<script>
+<script lang="ts">
+    import { onMount } from "svelte";
     import CreateFlashcard from "../../components/CreateFlashcard.svelte";
-    let showCreateFlashcardPopup = false;
+    import { getFlashcards } from "$lib/api";
+    import Flashcard from "../../components/Flashcard.svelte";
+
+    type Flashcard = {
+        ID: number;
+        Front: string;
+        Back: string;
+    };
+
+    let showCreateFlashcardPopup = $state();
+    let flashcards: Flashcard[] = $state([]);
+
+    onMount(async () => {
+        try {
+            flashcards = await getFlashcards();
+        } catch (error) {
+            console.error(error);
+        }
+    });
 </script>
 
 <div class="flex flex-col items-start ml-2 mt-2 bg-white p-2">
@@ -28,3 +47,7 @@
     open={showCreateFlashcardPopup}
     onClose={() => (showCreateFlashcardPopup = false)}
 />
+
+{#each flashcards as flashcard}
+    <Flashcard front={flashcard.Front} back={flashcard.Back}/>
+{/each}
