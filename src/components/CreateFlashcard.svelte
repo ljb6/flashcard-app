@@ -1,4 +1,5 @@
 <script>
+    import { goto } from "$app/navigation";
     import { createFlashcard } from "$lib/api";
 
     let { open, onClose } = $props();
@@ -10,6 +11,7 @@
         console.log(response);
         if (response == 200) {
             onClose();
+            goto("/").then(() => goto("/flashcards"));
         } else {
             alert("Erro!");
         }

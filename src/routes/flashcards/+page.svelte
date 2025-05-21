@@ -62,7 +62,6 @@
                 <th class="pb-4">Frente</th>
                 <th class="pb-4">Verso</th>
                 <th class="pb-4"></th>
-                <!-- Coluna para ações -->
             </tr>
         </thead>
         <tbody>
