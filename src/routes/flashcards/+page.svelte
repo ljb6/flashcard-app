@@ -1,7 +1,11 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import CreateFlashcard from "../../components/CreateFlashcard.svelte";
-    import { deleteAllFlashcards, deleteFlashcard, getFlashcards } from "$lib/api";
+    import {
+        deleteAllFlashcards,
+        deleteFlashcard,
+        getFlashcards,
+    } from "$lib/api";
     import EditFlashcard from "../../components/EditFlashcard.svelte";
 
     type Flashcard = {
@@ -40,17 +44,17 @@
     }
 </script>
 
-<div class="flex flex-col items-start ml-2 mt-2 bg-white p-2">
+<div class="flex flex-col items-start ml-2 mt-2 p-2">
     <div class="flex justify-between items-center gap-4 w-full">
         <div class="flex gap-4">
             <a
                 href="/"
-                class="cursor-pointer bg-blue-100 text-blue-700 hover:bg-blue-200 hover:text-blue-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
+                class="cursor-pointer bg-emerald-100 text-emerald-700 hover:bg-emerald-200 hover:text-emerald-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
                 >Praticar</a
             >
             <button
                 onclick={() => (showCreateFlashcardPopup = true)}
-                class="cursor-pointer bg-green-100 text-green-700 hover:bg-green-200 hover:text-green-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
+                class="cursor-pointer bg-emerald-100 text-emerald-700 hover:bg-emerald-200 hover:text-emerald-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
                 >Criar</button
             >
             <button
@@ -62,7 +66,7 @@
         <h2 class="mr-5 text-xl">Flashcards: {flashcards.length}</h2>
     </div>
 </div>
-<hr class="mt-2 border-blue-100" />
+<hr class="mt-2 border-emerald-100" />
 
 <!--Popups para editar/criar-->
 <CreateFlashcard
@@ -86,7 +90,7 @@
 <section class="bg-white p-6 rounded-2xl">
     <table class="w-full text-left">
         <thead>
-            <tr class="border-b border-[#E0E0E0]">
+            <tr class="border-b border-gray-300">
                 <th class="pb-4">Frente</th>
                 <th class="pb-4">Verso</th>
                 <th class="pb-4"></th>
@@ -95,7 +99,7 @@
         <tbody>
             {#each flashcards as flashcard}
                 <tr
-                    class="border-b border-[#F0F0F0] group hover:bg-blue-50 transition-colors"
+                    class="border-b border-gray-100 group hover:bg-teal-50 transition-colors"
                 >
                     <td class="py-3">{flashcard.Front}</td>
                     <td class="py-3">{flashcard.Back}</td>

@@ -1,5 +1,4 @@
 <script>
-    import { goto } from "$app/navigation";
     import { createFlashcard } from "$lib/api";
 
     let { open, onClose } = $props();
@@ -22,24 +21,25 @@
     <div
         class="fixed inset-0 bg-opacity-40 flex items-center justify-center z-50"
     >
-        <div class="bg-blue-50 p-8 rounded-lg shadow-lg min-w-[320px]">
-            <h2 class="text-lg font-bold mb-4 text-blue-700">
+        <div class="bg-teal-50 p-8 rounded-lg shadow-lg min-w-[320px]">
+            <h2 class="text-lg font-bold mb-4 text-emerald-700">
                 Criar Flashcard
             </h2>
             <form>
                 <input
-                    class="border border-blue-200 rounded-lg p-2 w-full mb-3 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    class="border border-emerald-200 rounded-lg p-2 w-full mb-3 focus:outline-none focus:ring-2 focus:ring-emerald-200 bg-white text-gray-800"
                     placeholder="Frente"
                     bind:value={front}
                 />
                 <input
-                    class="border border-blue-200 rounded-lg p-2 w-full mb-3 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    class="border border-emerald-200 rounded-lg p-2 w-full mb-3 focus:outline-none focus:ring-2 focus:ring-emerald-200 bg-white text-gray-800"
                     placeholder="Verso"
                     bind:value={back}
                 />
                 <button
+                    type="button"
                     onclick={handleFlashcardCreation}
-                    class="cursor-pointer bg-green-100 text-green-700 hover:bg-green-200 hover:text-green-900 font-medium px-6 py-2 rounded-lg transition-colors shadow-md mr-2"
+                    class="cursor-pointer bg-emerald-100 text-emerald-700 hover:bg-emerald-200 hover:text-emerald-900 font-medium px-6 py-2 rounded-lg transition-colors shadow-md mr-2"
                     >Salvar</button
                 >
                 <button
