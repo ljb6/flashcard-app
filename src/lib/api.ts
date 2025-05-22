@@ -128,3 +128,15 @@ export async function getDueFlashcards() {
 
     return data;
 }
+
+export async function generateFlashcards(theme: string) {
+    const resp = await fetch("http://localhost:8080/flashcards/generate", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ theme })
+    })
+
+    return resp.status;
+}

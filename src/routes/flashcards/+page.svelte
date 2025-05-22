@@ -7,6 +7,7 @@
         getAllFlashcards,
     } from "$lib/api";
     import EditFlashcard from "../../components/EditFlashcard.svelte";
+    import GenerateFlashcards from "../../components/GenerateFlashcards.svelte";
 
     type Flashcard = {
         id: number;
@@ -17,6 +18,7 @@
     };
 
     let showCreateFlashcardPopup = $state();
+    let showGenerateFlashcardsPopup = $state();
     let showEditFlashcardPopup = $state();
 
     let flashcards: Flashcard[] = $state([]);
@@ -60,6 +62,11 @@
                 >Criar</button
             >
             <button
+                onclick={() => (showGenerateFlashcardsPopup = true)}
+                class="cursor-pointer bg-emerald-100 text-emerald-700 hover:bg-emerald-200 hover:text-emerald-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
+                >Gerar com IA</button
+            >
+            <button
                 onclick={handleDeleteAllFlashcards}
                 class="cursor-pointer bg-red-100 text-red-700 hover:bg-red-200 hover:text-red-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
                 >Deletar todos</button
@@ -74,6 +81,11 @@
 <CreateFlashcard
     open={showCreateFlashcardPopup}
     onClose={() => (showCreateFlashcardPopup = false)}
+/>
+
+<GenerateFlashcards
+    open={showGenerateFlashcardsPopup}
+    onClose={() => (showGenerateFlashcardsPopup = false)}
 />
 
 {#if editingFlashcard}
