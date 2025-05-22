@@ -9,17 +9,19 @@
         Back: string;
     };
 
+    let flashcards_qty = $state(1);
+
     let flashcards: Flashcard[] = $state([]);
     onMount(async () => {
         try {
             flashcards = await getAllFlashcards();
+            flashcards_qty = flashcards.length;
         } catch (error) {
             console.error(error);
         }
     });
 
     let selectedOption = $state("random");
-    let flashcards_qty = $state(1);
 
     function onChange(event: Event) {
         selectedOption = (event.currentTarget as HTMLInputElement).value;
