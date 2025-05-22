@@ -1,6 +1,7 @@
 <script lang="ts">
     import {
         getDueFlashcards,
+        getFlashcardsByError,
         getRandomFlashcards,
         updateFlashcard,
     } from "$lib/api";
@@ -27,7 +28,7 @@
             } else if (trainType == "random") {
                 flashcards = await getRandomFlashcards(flashcardsQty);
             } else if (trainType == "errors") {
-                flashcards = await getRandomFlashcards(flashcardsQty);
+                flashcards = await getFlashcardsByError(flashcardsQty);
             }
         } catch (error: any) {
             loadingError = error;

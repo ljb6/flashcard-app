@@ -12,6 +12,8 @@
         id: number;
         front: string;
         back: string;
+        correct_answers: number;
+        incorrect_answers: number;
     };
 
     let showCreateFlashcardPopup = $state();
@@ -93,6 +95,7 @@
             <tr class="border-b border-gray-300">
                 <th class="pb-4">Frente</th>
                 <th class="pb-4">Verso</th>
+                <th class="pb-4">Acerto %</th>
                 <th class="pb-4"></th>
             </tr>
         </thead>
@@ -103,6 +106,7 @@
                 >
                     <td class="py-3">{flashcard.front}</td>
                     <td class="py-3">{flashcard.back}</td>
+                    <td class="py-3">{((flashcard.correct_answers/(flashcard.correct_answers+flashcard.incorrect_answers)) * 100).toFixed(2)}%</td>
                     <td class="py-3 text-right">
                         <div
                             class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"

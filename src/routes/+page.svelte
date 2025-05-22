@@ -92,7 +92,7 @@
                         <input
                             type="radio"
                             name="modo"
-                            value="erros"
+                            value="errors"
                             class="accent-emerald-500 h-5 w-5"
                             bind:group={selectedOption}
                         />
