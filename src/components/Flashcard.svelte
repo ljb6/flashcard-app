@@ -25,12 +25,22 @@
         }
     });
 
-
     let showAnswer = $state();
     let step = $state(0);
 
-    async function increaseStep() {
-        if (step < flashcards.length - 1) {
+    function handleFlashcard() {
+        showAnswer = !showAnswer;
+    }
+
+    let correctAnswers = $state(0);
+    let correctAnswersIDs = $state<number[]>([]);
+
+    async function increaseStep(correctAnswer: boolean, id: number) {
+        if (step < flashcards.length) {
+            if (correctAnswer) {
+                correctAnswers++;
+                correctAnswersIDs.push(id);
+            }
             showAnswer = !showAnswer;
             // timeout para não mostrar rapidamente a próxima resposta antes de terminar a animação
             await new Promise((resolve) => setTimeout(resolve, 140));
@@ -38,9 +48,6 @@
         }
     }
 
-    function handleFlashcard() {
-        showAnswer = !showAnswer;
-    }
     let hoveredButton: "none" | "wrong" | "right" = $state("none");
 </script>
 
@@ -50,9 +57,8 @@
     <h2>loading error</h2>
 {:else if flashcards.length == 0}
     <h2>Você ainda nao adicionou flashcards</h2>
-{:else}
+{:else if step < flashcards.length}
     <div class="flex flex-col min-h-screen">
-        <!-- Espaço do topo até o contador -->
         <div class="flex-1 flex flex-col justify-end pb-8">
             <div class="flex justify-center">
                 <h1 class="text-4xl font-semibold">
@@ -65,7 +71,7 @@
             <div class="flex items-center justify-center">
                 {#if showAnswer}
                     <button
-                        onclick={increaseStep}
+                        onclick={() => increaseStep(false, flashcards[step].id)}
                         class="mr-20 text-9xl cursor-pointer text-gray-400 hover:text-red-500 transition-colors duration-200 font-bold p-2"
                         aria-label="Errado"
                         onmouseenter={() => (hoveredButton = "wrong")}
@@ -107,7 +113,7 @@
 
                 {#if showAnswer}
                     <button
-                        onclick={increaseStep}
+                        onclick={() => increaseStep(true, flashcards[step].id)}
                         class="ml-21 text-8xl cursor-pointer text-gray-400 hover:text-green-500 transition-colors duration-200 font-bold p-2"
                         aria-label="Certo"
                         onmouseenter={() => (hoveredButton = "right")}
@@ -118,7 +124,57 @@
                 {/if}
             </div>
         </div>
-        <a href="/" class="ml-4 mb-4 cursor-pointer">Interromper</a>
+        <div class="mb-8 ml-4">
+            <a
+                href="/"
+                class="cursor-pointer bg-red-100 text-red-700 hover:bg-red-200 hover:text-red-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
+                >Interromper</a
+            >
+        </div>
+    </div>
+{/if}
+
+<!--Resultado-->
+{#if step >= flashcards.length}
+    <div>
+        <div class="mt-8 ml-4">
+            <a
+                href="/"
+                class="cursor-pointer bg-emerald-100 text-emerald-700 hover:bg-emerald-200 hover:text-emerald-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
+                >Voltar</a
+            >
+        </div>
+        <div class="flex justify-center">
+            <h1 class="text-2xl font-bold mt-8">
+                Acertos {correctAnswers}/{flashcards.length}
+            </h1>
+        </div>
+        <div class="bg-white p-6 rounded-2xl">
+            <table class="w-full text-left">
+                <thead>
+                    <tr class="border-b border-gray-300">
+                        <th class="pb-4">Frente</th>
+                        <th class="pb-4">Verso</th>
+                        <th class="pb-4"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {#each flashcards as flashcard}
+                        {#if correctAnswersIDs.some((item) => item === flashcard.id)}
+                            <tr class="border-b border-gray-100 bg-emerald-100">
+                                <td class="py-3">{flashcard.front}</td>
+                                <td class="py-3">{flashcard.back}</td>
+                            </tr>
+                        {:else}
+                            <tr class="border-b bg-red-300">
+                                <td class="py-3">{flashcard.front} errou</td>
+                                <td class="py-3">{flashcard.back}</td>
+                            </tr>
+                        {/if}
+                    {/each}
+                </tbody>
+            </table>
+        </div>
     </div>
 {/if}
 
