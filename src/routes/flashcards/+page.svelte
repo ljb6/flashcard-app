@@ -4,7 +4,7 @@
     import {
         deleteAllFlashcards,
         deleteFlashcard,
-        getFlashcards,
+        getAllFlashcards,
     } from "$lib/api";
     import EditFlashcard from "../../components/EditFlashcard.svelte";
 
@@ -20,7 +20,7 @@
     let flashcards: Flashcard[] = $state([]);
     onMount(async () => {
         try {
-            flashcards = await getFlashcards("all", 0);
+            flashcards = await getAllFlashcards();
         } catch (error) {
             console.error(error);
         }

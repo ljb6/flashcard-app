@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getFlashcards } from "$lib/api";
+    import { getAllFlashcards } from "$lib/api";
     import { onMount } from "svelte";
     import Flashcard from "../components/Flashcard.svelte";
 
@@ -12,7 +12,7 @@
     let flashcards: Flashcard[] = $state([]);
     onMount(async () => {
         try {
-            flashcards = await getFlashcards("all", 0);
+            flashcards = await getAllFlashcards();
         } catch (error) {
             console.error(error);
         }

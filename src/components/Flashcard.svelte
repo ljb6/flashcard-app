@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getDueFlashcards, getFlashcards, updateFlashcard } from "$lib/api";
+    import { getDueFlashcards, getRandomFlashcards, updateFlashcard } from "$lib/api";
     import { onMount } from "svelte";
 
     let { flashcardQty, trainType } = $props();
@@ -18,8 +18,10 @@
         try {
             if (trainType == "due") {
                 flashcards = await getDueFlashcards();
-            } else {
-                flashcards = await getFlashcards(trainType, flashcardQty);
+            } else if (trainType == "random") {
+                flashcards = await getRandomFlashcards(flashcardQty);
+            } else if (trainType == "errors") {
+                flashcards = await getRandomFlashcards(flashcardQty);
             }
         } catch (error: any) {
             loadingError = error;

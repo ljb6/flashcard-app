@@ -10,26 +10,38 @@ export async function createFlashcard(front: string, back: string) {
     return resp.status;
 }
 
-export async function getFlashcards(req_type: string, quantity: number) {
-    const res = await fetch("http://localhost:8080/flashcards/get", {
+export async function getRandomFlashcards(quantity: number) {
+    const res = await fetch("http://localhost:8080/flashcards/get-random", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ req_type, quantity })
+        body: JSON.stringify({ quantity })
     });
 
     if (!res.ok) {
         console.log(res);
-        throw new Error('Failed to fetch flashcards');
+        throw new Error('Failed to fetch random flashcards');
     }
 
-    //console.log(res);
+    const data = await res.json();
+    return data;
+}
+
+export async function getAllFlashcards() {
+    const res = await fetch("http://localhost:8080/flashcards/get-all", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    if (!res.ok) {
+        console.log(res);
+        throw new Error('Failed to fetch all flashcards');
+    }
 
     const data = await res.json();
-
-    console.log("data: ", data);
-
     return data;
 }
 
@@ -58,7 +70,7 @@ export async function editFlashcard(id: number, front: string, back: string) {
 }
 
 export async function deleteAllFlashcards() {
-    const resp = await fetch("http://localhost:8080/flashcards/deleteall", {
+    const resp = await fetch("http://localhost:8080/flashcards/delete-all", {
         method: "POST",
     })
 
