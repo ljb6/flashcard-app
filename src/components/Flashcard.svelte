@@ -1,8 +1,12 @@
 <script lang="ts">
-    import { getDueFlashcards, getRandomFlashcards, updateFlashcard } from "$lib/api";
+    import {
+        getDueFlashcards,
+        getRandomFlashcards,
+        updateFlashcard,
+    } from "$lib/api";
     import { onMount } from "svelte";
 
-    let { flashcardQty, trainType } = $props();
+    let { flashcardsQty, trainType } = $props();
 
     type Flashcard = {
         id: number;
@@ -14,14 +18,16 @@
     let loadingError: string | null = $state(null);
 
     let flashcards: Flashcard[] = $state([]);
+    let nullDue: boolean = $state(false);
     onMount(async () => {
         try {
             if (trainType == "due") {
                 flashcards = await getDueFlashcards();
+                if (flashcards == null) nullDue = true;
             } else if (trainType == "random") {
-                flashcards = await getRandomFlashcards(flashcardQty);
+                flashcards = await getRandomFlashcards(flashcardsQty);
             } else if (trainType == "errors") {
-                flashcards = await getRandomFlashcards(flashcardQty);
+                flashcards = await getRandomFlashcards(flashcardsQty);
             }
         } catch (error: any) {
             loadingError = error;
@@ -68,11 +74,24 @@
 </script>
 
 {#if loading}
-    <h2>Carregando flashcards..</h2>
+    <div class="flex items-center justify-center min-h-screen">
+        <div
+            class="animate-spin rounded-full h-32 w-32 border-t-4 border-emerald-500 border-solid"
+        ></div>
+    </div>
 {:else if loadingError}
     <h2>loading error</h2>
-{:else if flashcards.length == 0}
-    <h2>Você ainda nao adicionou flashcards</h2>
+{:else if nullDue}
+    <div class="flex flex-col items-center justify-center min-h-screen">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-4">
+            Nenhum flashcard pendente para revisão espaçada!
+        </h2>
+        <button
+            onclick={() => window.location.reload()}
+            class="cursor-pointer bg-emerald-100 text-emerald-700 hover:bg-emerald-200 hover:text-emerald-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
+            >Voltar</button
+        >
+    </div>
 {:else if step < flashcards.length}
     <div class="flex flex-col min-h-screen">
         <div class="flex-1 flex flex-col justify-end pb-8">
@@ -151,7 +170,7 @@
 {/if}
 
 <!--Resultado-->
-{#if step >= flashcards.length}
+{#if step >= flashcards.length && flashcards.length > 0}
     <div>
         <div class="flex mt-4 ml-4 gap-2">
             <button
@@ -219,5 +238,18 @@
     }
     .flipped {
         transform: rotateY(180deg);
+    }
+
+    .animate-spin {
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
     }
 </style>

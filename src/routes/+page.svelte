@@ -27,16 +27,12 @@
 
     let showPractice = $state(false);
     function handleSubmit() {
-        if (flashcards.length >= 1) {
-            showPractice = true;
-        }
-        console.log(flashcards_qty);
-        console.log(selectedOption);
+        if (flashcards.length >= 1) showPractice = true;
     }
 </script>
 
-{#if showPractice}
-    <Flashcard flashcardQty={flashcards_qty} trainType={selectedOption} />
+{#if showPractice && flashcards_qty > 0 && flashcards_qty < flashcards.length + 1}
+    <Flashcard flashcardsQty={flashcards_qty} trainType={selectedOption} />
 {:else}
     <div
         class="flex flex-col items-center justify-center min-h-screen bg-teal-50"
@@ -50,7 +46,7 @@
                 <label
                     for="qtd"
                     class="block text-lg text-gray-700 font-medium mb-2"
-                    >Quantidade de flashcards (máx. {flashcards.length})</label
+                    >Quantidade de flashcards</label
                 >
                 <input
                     id="qtd"
@@ -60,6 +56,7 @@
                     bind:value={flashcards_qty}
                     class="p-3 w-full px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-100 bg-gray-50 text-gray-800 text-lg"
                 />
+                <p class="text-gray-500">Flashcards criados: {flashcards.length}</p>
             </div>
 
             <div class="mt-8">
@@ -85,10 +82,10 @@
                             name="modo"
                             value="due"
                             class="accent-emerald-500 h-5 w-5"
-                            checked
                             bind:group={selectedOption}
                         />
-                        <span class="ml-3 text-lg text-gray-700">Revisão Espaçada</span
+                        <span class="ml-3 text-lg text-gray-700"
+                            >Revisão Espaçada</span
                         >
                     </label>
                     <label class="flex items-center">
@@ -106,23 +103,38 @@
                 </div>
             </div>
 
-            <div class="flex flex-col justify-center text-center gap-3 mt-8">
+            <div
+                class="flex flex-col justify-center text-center gap-3 mt-8 max-w-xs mx-auto"
+            >
+                {#if flashcards.length == 0}
+                <button
+                    disabled
+                    onclick={handleSubmit}
+                    class="bg-red-200 text-red-700  font-medium px-6 py-3 rounded-lg shadow-md"
+                >
+                    Adicione flashcards para praticar
+                </button>
+                {:else}
                 <button
                     onclick={handleSubmit}
-                    class="cursor-pointer text-emerald-600 hover:text-emerald-800 font-medium px-8 py-4 rounded-xl hover:bg-emerald-100 transition-colors shadow-md text-lg"
-                    >Praticar</button
+                    class="w-full cursor-pointer bg-emerald-400 text-emerald-800 hover:bg-emerald-500 hover:text-emerald-9000 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
                 >
-                <div class="flex gap-3">
+                    Praticar
+                </button>
+                {/if}
+                <div class="flex gap-3 w-full">
                     <a
                         href="/flashcards"
-                        class="text-emerald-600 hover:text-emerald-800 font-medium px-8 py-4 rounded-xl hover:bg-emerald-100 transition-colors shadow-md text-lg"
-                        >Flashcards</a
+                        class="flex-1 cursor-pointer bg-emerald-200 text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
                     >
+                        Flashcards
+                    </a>
                     <a
                         href="/flashcards"
-                        class="text-emerald-600 hover:text-emerald-800 font-medium px-8 py-4 rounded-xl hover:bg-emerald-100 transition-colors shadow-md text-lg"
-                        >Resultados</a
+                        class="flex-1 cursor-pointer bg-emerald-200 text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
                     >
+                        Resultados
+                    </a>
                 </div>
             </div>
         </div>

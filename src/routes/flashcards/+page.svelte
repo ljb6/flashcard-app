@@ -50,7 +50,7 @@
             <a
                 href="/"
                 class="cursor-pointer bg-emerald-100 text-emerald-700 hover:bg-emerald-200 hover:text-emerald-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
-                >Praticar</a
+                >Voltar</a
             >
             <button
                 onclick={() => (showCreateFlashcardPopup = true)}
