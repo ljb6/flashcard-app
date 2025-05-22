@@ -27,14 +27,16 @@
 
     let showPractice = $state(false);
     function handleSubmit() {
-        showPractice = true;
+        if (flashcards.length >= 1) {
+            showPractice = true;
+        }
         console.log(flashcards_qty);
         console.log(selectedOption);
     }
 </script>
 
 {#if showPractice}
-    <Flashcard flashcardQty={flashcards_qty} trainType={selectedOption}/>
+    <Flashcard flashcardQty={flashcards_qty} trainType={selectedOption} />
 {:else}
     <div
         class="flex flex-col items-center justify-center min-h-screen bg-teal-50"

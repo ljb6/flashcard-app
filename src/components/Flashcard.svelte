@@ -34,12 +34,14 @@
 
     let correctAnswers = $state(0);
     let correctAnswersIDs = $state<number[]>([]);
+    let wrongAnswersIDs = $state<number[]>([]);
 
     async function increaseStep(correctAnswer: boolean, id: number) {
         if (step < flashcards.length) {
             if (correctAnswer) {
-                correctAnswers++;
-                correctAnswersIDs.push(id);
+                correctAnswers++; correctAnswersIDs.push(id);
+            } else {
+                wrongAnswersIDs.push(id);
             }
             showAnswer = !showAnswer;
             // timeout para não mostrar rapidamente a próxima resposta antes de terminar a animação
