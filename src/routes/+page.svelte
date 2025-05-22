@@ -104,7 +104,7 @@
             </div>
 
             <div
-                class="flex flex-col justify-center text-center gap-3 mt-8 max-w-xs mx-auto"
+                class="flex flex-col justify-center text-center gap-3 mt-8 max-w-xs mx-auto w-200"
             >
                 {#if flashcards.length == 0}
                 <button
@@ -128,12 +128,6 @@
                         class="flex-1 cursor-pointer bg-emerald-200 text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
                     >
                         Flashcards
-                    </a>
-                    <a
-                        href="/flashcards"
-                        class="flex-1 cursor-pointer bg-emerald-200 text-emerald-700 hover:bg-emerald-300 hover:text-emerald-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
-                    >
-                        Resultados
                     </a>
                 </div>
             </div>

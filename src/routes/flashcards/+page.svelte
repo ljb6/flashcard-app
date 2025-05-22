@@ -106,7 +106,11 @@
                 >
                     <td class="py-3">{flashcard.front}</td>
                     <td class="py-3">{flashcard.back}</td>
-                    <td class="py-3">{((flashcard.correct_answers/(flashcard.correct_answers+flashcard.incorrect_answers)) * 100).toFixed(2)}%</td>
+                    {#if isNaN(((flashcard.correct_answers/(flashcard.correct_answers+flashcard.incorrect_answers)) * 100))}
+                        <td class="py-3">--%</td>
+                    {:else}
+                        <td class="py-3">{((flashcard.correct_answers/(flashcard.correct_answers+flashcard.incorrect_answers)) * 100).toFixed(2)}%</td>
+                    {/if}
                     <td class="py-3 text-right">
                         <div
                             class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"
