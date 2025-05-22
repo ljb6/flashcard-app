@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getFlashcards } from "$lib/api";
+    import { getDueFlashcards, getFlashcards, updateFlashcard } from "$lib/api";
     import { onMount } from "svelte";
 
     let { flashcardQty, trainType } = $props();
@@ -16,7 +16,11 @@
     let flashcards: Flashcard[] = $state([]);
     onMount(async () => {
         try {
-            flashcards = await getFlashcards(trainType, flashcardQty);
+            if (trainType == "due") {
+                flashcards = await getDueFlashcards();
+            } else {
+                flashcards = await getFlashcards(trainType, flashcardQty);
+            }
         } catch (error: any) {
             loadingError = error;
             console.error(error);
@@ -38,8 +42,10 @@
 
     async function increaseStep(correctAnswer: boolean, id: number) {
         if (step < flashcards.length) {
+            updateFlashcard(id, correctAnswer);
             if (correctAnswer) {
-                correctAnswers++; correctAnswersIDs.push(id);
+                correctAnswers++;
+                correctAnswersIDs.push(id);
             } else {
                 wrongAnswersIDs.push(id);
             }
@@ -134,7 +140,7 @@
         </div>
         <div class="mb-8 ml-4">
             <button
-                onclick={() => (window.location.reload())}
+                onclick={() => window.location.reload()}
                 class="cursor-pointer bg-red-100 text-red-700 hover:bg-red-200 hover:text-red-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
                 >Interromper</button
             >
@@ -147,7 +153,7 @@
     <div>
         <div class="flex mt-4 ml-4 gap-2">
             <button
-                onclick={() => (window.location.reload())}
+                onclick={() => window.location.reload()}
                 class="cursor-pointer bg-emerald-100 text-emerald-700 hover:bg-emerald-200 hover:text-emerald-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
                 >Voltar</button
             >

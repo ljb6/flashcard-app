@@ -64,3 +64,37 @@ export async function deleteAllFlashcards() {
 
     return resp.status;
 }
+
+export async function updateFlashcard(id: number, correct: boolean) {
+    const resp = await fetch("http://localhost:8080/flashcards/update-stats", {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, correct })
+    })
+
+    return resp.status;
+}
+
+export async function getDueFlashcards() {
+    const res = await fetch("http://localhost:8080/flashcards/get-due", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+
+    if (!res.ok) {
+        console.log(res);
+        throw new Error('Failed to fetch flashcards');
+    }
+
+    //console.log(res);
+
+    const data = await res.json();
+
+    console.log("data: ", data);
+
+    return data;
+}

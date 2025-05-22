@@ -83,6 +83,18 @@
                         <input
                             type="radio"
                             name="modo"
+                            value="due"
+                            class="accent-emerald-500 h-5 w-5"
+                            checked
+                            bind:group={selectedOption}
+                        />
+                        <span class="ml-3 text-lg text-gray-700">Revisão Espaçada</span
+                        >
+                    </label>
+                    <label class="flex items-center">
+                        <input
+                            type="radio"
+                            name="modo"
                             value="erros"
                             class="accent-emerald-500 h-5 w-5"
                             bind:group={selectedOption}
