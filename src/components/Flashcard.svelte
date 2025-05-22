@@ -6,6 +6,7 @@
         updateFlashcard,
     } from "$lib/api";
     import { onMount } from "svelte";
+    import { Confetti } from "svelte-confetti"
 
     let { flashcardsQty, trainType } = $props();
 
@@ -172,6 +173,30 @@
 
 <!--Resultado-->
 {#if step >= flashcards.length && flashcards.length > 0}
+    {#if correctAnswers/flashcards.length >= 0.7}
+        <div
+        style="
+ position: fixed;
+ top: -50px;
+ left: 0;
+ height: 100vh;
+ width: 100vw;
+ display: flex;
+ justify-content: center;
+ overflow: hidden;
+ pointer-events: none;"
+    >
+        <Confetti
+            x={[-5, 5]}
+            y={[0, 0.1]}
+            delay={[500, 2000]}
+            infinite
+            duration={5000}
+            amount={300}
+            fallDistance="100vh"
+        />
+    </div>
+    {/if}
     <div>
         <div class="flex mt-4 ml-4 gap-2">
             <button

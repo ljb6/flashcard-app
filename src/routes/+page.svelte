@@ -58,7 +58,9 @@
                     bind:value={flashcards_qty}
                     class="p-3 w-full px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-100 bg-gray-50 text-gray-800 text-lg"
                 />
-                <p class="text-gray-500">Flashcards criados: {flashcards.length}</p>
+                <p class="text-gray-500">
+                    Flashcards criados: {flashcards.length}
+                </p>
             </div>
 
             <div class="mt-8">
@@ -109,20 +111,20 @@
                 class="flex flex-col justify-center text-center gap-3 mt-8 max-w-xs mx-auto w-200"
             >
                 {#if flashcards.length == 0}
-                <button
-                    disabled
-                    onclick={handleSubmit}
-                    class="bg-red-200 text-red-700  font-medium px-6 py-3 rounded-lg shadow-md"
-                >
-                    Adicione flashcards para praticar
-                </button>
+                    <button
+                        disabled
+                        onclick={handleSubmit}
+                        class="bg-red-200 text-red-700 font-medium px-6 py-3 rounded-lg shadow-md"
+                    >
+                        Adicione flashcards para praticar
+                    </button>
                 {:else}
-                <button
-                    onclick={handleSubmit}
-                    class="w-full cursor-pointer bg-emerald-400 text-emerald-800 hover:bg-emerald-500 hover:text-emerald-9000 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
-                >
-                    Praticar
-                </button>
+                    <button
+                        onclick={handleSubmit}
+                        class="w-full cursor-pointer bg-emerald-400 text-emerald-800 hover:bg-emerald-500 hover:text-emerald-9000 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
+                    >
+                        Praticar
+                    </button>
                 {/if}
                 <div class="flex gap-3 w-full">
                     <a
