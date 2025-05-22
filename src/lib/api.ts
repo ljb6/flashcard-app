@@ -1,5 +1,5 @@
 export async function createFlashcard(front: string, back: string) {
-    const resp = await fetch("http://localhost:8080/flashcards/create", {
+    const resp = await fetch("https://flashcard-app-backend-l0tz.onrender.com/flashcards/create", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -11,7 +11,7 @@ export async function createFlashcard(front: string, back: string) {
 }
 
 export async function getRandomFlashcards(quantity: number) {
-    const res = await fetch("http://localhost:8080/flashcards/get-random", {
+    const res = await fetch("https://flashcard-app-backend-l0tz.onrender.com/flashcards/get-random", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export async function getRandomFlashcards(quantity: number) {
 }
 
 export async function getFlashcardsByError(quantity: number) {
-    const res = await fetch("http://localhost:8080/flashcards/get-error", {
+    const res = await fetch("https://flashcard-app-backend-l0tz.onrender.com/flashcards/get-error", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export async function getFlashcardsByError(quantity: number) {
 }
 
 export async function getAllFlashcards() {
-    const res = await fetch("http://localhost:8080/flashcards/get-all", {
+    const res = await fetch("https://flashcard-app-backend-l0tz.onrender.com/flashcards/get-all", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export async function getAllFlashcards() {
 }
 
 export async function deleteFlashcard(id: number) {
-    const resp = await fetch("http://localhost:8080/flashcards/delete", {
+    const resp = await fetch("https://flashcard-app-backend-l0tz.onrender.com/flashcards/delete", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -76,7 +76,7 @@ export async function deleteFlashcard(id: number) {
 }
 
 export async function editFlashcard(id: number, front: string, back: string) {
-    const resp = await fetch("http://localhost:8080/flashcards/update", {
+    const resp = await fetch("https://flashcard-app-backend-l0tz.onrender.com/flashcards/update", {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
@@ -88,7 +88,7 @@ export async function editFlashcard(id: number, front: string, back: string) {
 }
 
 export async function deleteAllFlashcards() {
-    const resp = await fetch("http://localhost:8080/flashcards/delete-all", {
+    const resp = await fetch("https://flashcard-app-backend-l0tz.onrender.com/flashcards/delete-all", {
         method: "POST",
     })
 
@@ -96,7 +96,7 @@ export async function deleteAllFlashcards() {
 }
 
 export async function updateFlashcard(id: number, correct: boolean) {
-    const resp = await fetch("http://localhost:8080/flashcards/update-stats", {
+    const resp = await fetch("https://flashcard-app-backend-l0tz.onrender.com/flashcards/update-stats", {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
@@ -108,7 +108,7 @@ export async function updateFlashcard(id: number, correct: boolean) {
 }
 
 export async function getDueFlashcards() {
-    const res = await fetch("http://localhost:8080/flashcards/get-due", {
+    const res = await fetch("https://flashcard-app-backend-l0tz.onrender.com/flashcards/get-due", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -130,7 +130,7 @@ export async function getDueFlashcards() {
 }
 
 export async function generateFlashcards(theme: string) {
-    const resp = await fetch("http://localhost:8080/flashcards/generate", {
+    const resp = await fetch("https://flashcard-app-backend-l0tz.onrender.com/flashcards/generate", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
