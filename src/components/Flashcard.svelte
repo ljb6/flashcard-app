@@ -126,19 +126,19 @@
                         onclick={handleFlashcard}
                     >
                         <div
-                            class="front absolute w-full h-full flex items-center justify-center bg-white rounded-xl border-2 border-gray-200 backface-hidden p-6"
+                            class="front absolut text-center w-full h-full flex items-center justify-center bg-white rounded-xl border-2 border-gray-200 backface-hidden p-6"
                         >
                             <p class="text-2xl font-semibold text-gray-800">
                                 {flashcards[step].front}
                             </p>
                         </div>
                         <div
-                            class="border-2 shadow-2xl back absolute w-full h-full flex items-center justify-center bg-teal-50 rounded-xl backface-hidden rotate-y-180 p-6
+                            class="border-2 shadow-2xl back absolute text-center w-full h-full flex items-center justify-center bg-gray-100 rounded-xl backface-hidden rotate-y-180 p-6
               {hoveredButton === 'wrong'
-                                ? ' border-red-500'
+                                ? ' border-red-500 bg-red-200 shadow-2xl transition-colors duration-300'
                                 : hoveredButton === 'right'
-                                  ? ' border-green-500'
-                                  : ' border-gray-200'}"
+                                  ? ' border-green-500 bg-green-200 shadow-2xl transition-colors duration-300'
+                                  : ' border-gray-200 transition-colors duration-300'}"
                         >
                             <p class="text-2xl font-semibold text-gray-800">
                                 {flashcards[step].back}
