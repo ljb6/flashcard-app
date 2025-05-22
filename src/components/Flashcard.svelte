@@ -48,6 +48,12 @@
         }
     }
 
+    function handleRemake() {
+        correctAnswers = 0;
+        correctAnswersIDs = [];
+        step = 0;
+    }
+
     let hoveredButton: "none" | "wrong" | "right" = $state("none");
 </script>
 
@@ -125,10 +131,10 @@
             </div>
         </div>
         <div class="mb-8 ml-4">
-            <a
-                href="/"
+            <button
+                onclick={() => (window.location.reload())}
                 class="cursor-pointer bg-red-100 text-red-700 hover:bg-red-200 hover:text-red-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
-                >Interromper</a
+                >Interromper</button
             >
         </div>
     </div>
@@ -137,14 +143,19 @@
 <!--Resultado-->
 {#if step >= flashcards.length}
     <div>
-        <div class="mt-8 ml-4">
-            <a
-                href="/"
+        <div class="flex mt-4 ml-4 gap-2">
+            <button
+                onclick={() => (window.location.reload())}
                 class="cursor-pointer bg-emerald-100 text-emerald-700 hover:bg-emerald-200 hover:text-emerald-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
-                >Voltar</a
+                >Voltar</button
+            >
+            <button
+                onclick={handleRemake}
+                class="cursor-pointer bg-red-100 text-red-700 hover:bg-red-200 hover:text-red-900 font-medium px-6 py-3 rounded-lg transition-colors shadow-md"
+                >Refazer</button
             >
         </div>
-        <div class="flex justify-center">
+        <div class="flex justify-start ml-7">
             <h1 class="text-2xl font-bold mt-8">
                 Acertos {correctAnswers}/{flashcards.length}
             </h1>
@@ -155,19 +166,18 @@
                     <tr class="border-b border-gray-300">
                         <th class="pb-4">Frente</th>
                         <th class="pb-4">Verso</th>
-                        <th class="pb-4"></th>
                     </tr>
                 </thead>
                 <tbody>
                     {#each flashcards as flashcard}
                         {#if correctAnswersIDs.some((item) => item === flashcard.id)}
-                            <tr class="border-b border-gray-100 bg-emerald-100">
-                                <td class="py-3">{flashcard.front}</td>
+                            <tr class="border-b border-gray-100">
+                                <td class="py-3 ml-2">✅ {flashcard.front}</td>
                                 <td class="py-3">{flashcard.back}</td>
                             </tr>
                         {:else}
-                            <tr class="border-b bg-red-300">
-                                <td class="py-3">{flashcard.front} errou</td>
+                            <tr class="border-b border-gray-100">
+                                <td class="py-3 ml2">❌ {flashcard.front}</td>
                                 <td class="py-3">{flashcard.back}</td>
                             </tr>
                         {/if}
