@@ -1,16 +1,19 @@
 <script>
-    import { createFlashcard, generateFlashcards } from "$lib/api";
+    import { generateFlashcards } from "$lib/api";
 
     let { open, onClose } = $props();
     let theme = $state("");
+    let loading = $state(false);
 
     async function handleFlashcardCreation() {
-        open = false;
+        open = false; loading = true;
         const response = await generateFlashcards(theme);
         console.log(response);
         if (response == 200) {
+            loading = false;
             window.location.reload();
         } else {
+            loading = false;
             alert("Erro!");
         }
     }
@@ -20,7 +23,9 @@
     <div
         class="fixed inset-0 bg-opacity-40 flex items-center justify-center z-50"
     >
-        <div class="bg-teal-50 p-8 rounded-lg shadow-2xl shadow-emerald-700 min-w-[320px]">
+        <div
+            class="bg-teal-50 p-8 rounded-lg shadow-2xl shadow-emerald-700 min-w-[320px]"
+        >
             <h2 class="text-lg font-bold mb-4 text-emerald-700">
                 Gerar Flashcards
             </h2>
@@ -45,3 +50,25 @@
         </div>
     </div>
 {/if}
+{#if loading}
+    <div class="flex items-center justify-center min-h-screen">
+        <div
+            class="animate-spin rounded-full h-32 w-32 border-t-4 border-emerald-500 border-solid"
+        ></div>
+    </div>
+{/if}
+
+<style>
+    .animate-spin {
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
